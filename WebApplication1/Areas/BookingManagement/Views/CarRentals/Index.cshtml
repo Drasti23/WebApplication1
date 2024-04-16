@@ -1,0 +1,89 @@
+﻿@using WebApplication1.Areas.BookingManagement.Models;
+@model List<CarRental> // Assuming Flight is your model class
+
+@{
+    ViewData["Title"] = "Car Rentals";
+    Layout = "_Layout";
+    bool searchPerformed = ViewData["SeachPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string;
+}
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <ul class="navbar-nav">
+        <li>
+            <a class="btn btn-success" asp-area="BookingManagement" asp-action="Create" asp-controller="CarRentals">Add Car</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav flex-grow-1 justify-content-end">
+        <form asp-action="Search">
+            <div class="input-group md-form-sm form-2 pl-0">
+                <input name="searchString" class="form-control my-0<a href=" c:\users\101414422\webapplication1\webapplication1\areas\bookingmanagement\views\carrentals\index.cshtml"> 
+                 </a> 
+                <div class="input-group-append">
+                    <span class="input-group-text list-group-numbered lighten-3" id="basic-text1">
+                        <i class="fas fa-search text grey" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <li>
+            <a class="btn btn-secondary" asp-area="BookingManagement" asp-action="Index" asp-controller="CarRentals">Back To List</a>
+        </li>
+    </ul>
+</nav>
+
+
+<h1>Available Cars</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Model</th>
+            <th>RentalAgency</th>
+            <th>PricePerDay</th>
+            <th>Available</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var carrental in Model)
+        {
+            <tr>
+                <td>@carrental.Id</td>
+                <td>@carrental.Model</td>
+                <td>@carrental.RentalAgency</td>
+                <td>@carrental.PricePerDay</td>
+                <td>@carrental.IsAvailable</td>
+
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "CarRentals", new { id = carrental.Id })">Details</a>
+                </td>
+
+                <td>
+                    <form id="bookForm-@carrental.Id" asp-controller="CarRentals" asp-action="Book" method="post">
+                        <input type="hidden" name="id" value="@carrental.Id" />
+                        <button type="button" class="btn btn-success" onclick="confirmBooking(@carrental.Id)">Book</button>
+                    </form>
+                </td>
+
+                <td>
+                    <form asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="id" value="@carrental.Id" />
+                        <button type="submit" class="btn btn-danger" asp-controller="CarRentals" asp-action="Delete">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function confirmBooking(carrentalId) {
+        if (confirm('Are you sure you want to book this car rental?')) {
+            document.getElementById('bookForm-' + carrentalId).submit();
+        }
+    }</script>

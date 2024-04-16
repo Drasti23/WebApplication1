@@ -1,0 +1,32 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<header>
+    <h1>@ViewData["Title"]</h1>
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button id="logoutButton" type="button" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+            </form>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById("logoutButton").addEventListener("click", function () {
+                        // Submit the form when the button is clicked
+                        document.getElementById("logoutForm").submit();
+                    });
+                });
+            </script>
+
+
+        }
+        else
+        {
+            <p>You have successfully logged out of the application.</p>
+        }
+    }
+</header>

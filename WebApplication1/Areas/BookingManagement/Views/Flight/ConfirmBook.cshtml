@@ -1,0 +1,47 @@
+﻿@using WebApplication1.Areas.BookingManagement.Models;
+@{
+    ViewData["Title"] = "Confirm Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Update the layout path if needed
+}
+
+<h1>Confirm Booking</h1>
+
+@if (ViewData.ContainsKey("BookingId") && ViewData["Flight"] != null)
+{
+    var flight = ViewData["Flight"] as Flight;
+    <div>
+        <p>Your booking with ID: <strong>@ViewData["BookingId"]</strong> has been confirmed.</p>
+        <h3>Flight Details:</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Flight Number:</dt>
+            <dd class="col-sm-9">@flight.FlightNumber</dd>
+
+            <dt class="col-sm-3">Origin :</dt>
+            <dd class="col-sm-9">@flight.Origin</dd>
+
+            <dt class="col-sm-3">Destination:</dt>
+            <dd class="col-sm-9">@flight.Destination</dd>
+
+            <dt class="col-sm-3">Departure Time:</dt>
+            <dd class="col-sm-9">@flight.DepartureTime</dd>
+
+            <dt class="col-sm-3">Arrival Time:</dt>
+            <dd class="col-sm-9">@flight.ArrivalTime</dd>
+
+            <dt class="col-sm-3">Price:</dt>
+            <dd class="col-sm-9">@flight.Price</dd>
+
+            <!-- Add other flight details here -->
+        </dl>
+    </div>
+}
+else
+{
+    <div>
+        <p>Booking confirmation details not found.</p>
+    </div>
+}
+
+<div>
+    <a class="btn btn-primary" asp-controller="Flight" asp-action="Index">Back to Flights</a>
+</div>

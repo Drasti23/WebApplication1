@@ -1,0 +1,41 @@
+﻿@using WebApplication1.Areas.BookingManagement.Models;
+@{
+    ViewData["Title"] = "Confirm Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Confirm Booking</h1>
+
+@if (ViewData.ContainsKey("BookingId") && ViewData["CarRental"] != null)
+{
+    var carRental = ViewData["CarRental"] as CarRental;
+    <div>
+        <p>Your booking with ID: <strong>@ViewData["BookingId"]</strong> has been confirmed.</p>
+        <h3>Car Rental Details:</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Id:</dt>
+            <dd class="col-sm-9">@carRental.Id</dd>
+
+            <dt class="col-sm-3">Model:</dt>
+            <dd class="col-sm-9">@carRental.Model</dd>
+
+            <dt class="col-sm-3">Rental Agency:</dt>
+            <dd class="col-sm-9">@carRental.RentalAgency</dd>
+
+            <dt class="col-sm-3">Price Per Day:</dt>
+            <dd class="col-sm-9">@carRental.PricePerDay</dd>
+
+            <!-- Add other car rental details here -->
+        </dl>
+    </div>
+}
+else
+{
+    <div>
+        <p>Booking confirmation details not found.</p>
+    </div>
+}
+
+<div>
+    <a class="btn btn-primary" asp-controller="CarRentals" asp-action="Index">Back to Car Rentals</a>
+</div>

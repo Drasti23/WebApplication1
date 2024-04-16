@@ -1,0 +1,38 @@
+﻿@using WebApplication1.Areas.BookingManagement.Models;
+@model CarRental
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Model" class="control-label"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RentalAgency" class="control-label"></label>
+        <input asp-for="RentalAgency" class="form-control" />
+        <span asp-validation-for="RentalAgency" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PricePerDay" class="control-label"></label>
+        <input asp-for="PricePerDay" class="form-control" />
+        <span asp-validation-for="PricePerDay" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsAvailable" class="control-label"></label>
+        <input asp-for="IsAvailable" type="checkbox" />
+        <span asp-validation-for="IsAvailable" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
